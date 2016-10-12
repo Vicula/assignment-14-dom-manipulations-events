@@ -104,39 +104,31 @@ inputStr.addEventListener('keypress', addToList)
 var inputStrB = document.querySelector('#add-guest-bonus input')
 var guestListB = document.querySelector('#add-guest-bonus .guest-list li')
 var guestListHldrB = document.querySelector('#add-guest-bonus .guest-list')
-// var guestListXB = document.querySelectorAll('#add-guest-bonus .remove')
-var buttonHldr = []
 
+   var createNewThing = function(evt){
 
+      if (event.keyCode === 13){
+         var newLiNode = document.createElement('li')
+         newLiNode.classList.add('guest')
+         newLiNode.textContent = inputStrB.value
+         var newLiBut = document.createElement('button')
+         newLiBut.classList.add('remove')
+         newLiBut.textContent = 'X'
+         newLiNode.appendChild(newLiBut)
+         guestListHldrB.appendChild(newLiNode)
+         newLiBut.addEventListener('click', remvThisThing)
+         inputStrB.value = ''
+      } else {
 
-var addToListB = function(event){
-   // console.log(event)
-   // var guestListXB = document.querySelectorAll('#add-guest-bonus .remove')
-   var emptyEntryB = '<li class="guest">'+ inputStrB.value + '<button class="remove">X</button></li>'
-
-   if (event.keyCode === 13){
-      // var entryValue =
-      guestListHldrB.innerHTML += emptyEntryB
-      console.log(guestListHldrB.innerHTML)
-      inputStrB.value = ''
-      var buttonThing = document.querySelectorAll('#add-guest-bonus .remove')
-      buttonHldr = buttonThing
-   } else {
+      }
 
    }
-   console.log(buttonHldr)
 
-}
+   var remvThisThing = function(){
+      console.log(this.parentElement)
+      var currntThing = this.parentElement
+      guestListHldrB.removeChild(currntThing)
+   }
 
-var remvThis = function(){
-   var currntThing = this.parentElement
-   guestListHldrB.appendChild(currntThing)
-   console.log(currntThing)
-}
 
-console.log(buttonHldr)
-inputStrB.addEventListener('keypress', addToListB)
-
-for (var i =0; i < buttonHldr.length; i++){
-   buttonHldr[i].addEventListener('click', remvThis)
-}
+inputStrB.addEventListener('keypress', createNewThing)
